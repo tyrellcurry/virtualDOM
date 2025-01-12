@@ -5,7 +5,7 @@ export interface VNode {
 }
 
 export interface VNodeProps {
-  [key: string]: string | number | boolean | undefined;
+  [key: string]: string | number | boolean | (() => void) | undefined;
 }
 
 export type VNodeChild = VNode | string;
