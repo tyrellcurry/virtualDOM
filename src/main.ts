@@ -1,24 +1,35 @@
-import './style.css'
-import typescriptLogo from './typescript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.ts'
+import "./style.css";
+import { renderDOM } from "./render/render.ts";
+import { VNode } from "./vdom/vnode.interface.ts";
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://www.typescriptlang.org/" target="_blank">
-      <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
-    </a>
-    <h1>Vite + TypeScript</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite and TypeScript logos to learn more
-    </p>
-  </div>
-`
+// Create virtual DOM tree
+const vnode: VNode = {
+  type: "div",
+  props: {
+    class: "container",
+    id: "main",
+  },
+  children: [
+    {
+      type: "h1",
+      children: ["Hello World"],
+    },
+    {
+      type: "p",
+      props: { class: "content" },
+      children: ["This is a paragraph"],
+    },
+    "Plain text",
+  ],
+};
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+// Render the virtual DOM into a real DOM element
+const domNode = renderDOM(vnode);
+
+// Find the container element to append the rendered element
+const appContainer = document.querySelector<HTMLDivElement>("#app");
+
+// Append the rendered element to the appContainer
+if (appContainer) {
+  appContainer.appendChild(domNode); // Append the rendered DOM element
+}
