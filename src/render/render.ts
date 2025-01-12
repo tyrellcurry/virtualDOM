@@ -7,6 +7,7 @@ import { VDOMError, renderNode } from "./utils";
  * @returns The rendered DOM node
  * @throws {VDOMError} If there's an error during rendering
  */
+
 export const renderDOM = (vnode: VNode): Node => {
   try {
     return renderNode(vnode);

@@ -13,24 +13,26 @@ export const isVNode = (node: VNodeChild): node is VNode => {
   return typeof node === "object" && node !== null;
 };
 
-export const setAttributes = (
-  element: HTMLElement,
-  props: VNodeProps,
-): void => {
+const setAttributes = (element: HTMLElement, props: VNodeProps): void => {
   Object.entries(props).forEach(([key, value]) => {
     if (value !== undefined) {
-      // Convert non-string values to strings
-      element.setAttribute(key, String(value));
+      if (key.startsWith("on") && typeof value === "function") {
+        // Event listener, add it to the element
+        element.addEventListener(key.slice(2).toLowerCase(), value);
+      } else {
+        // Convert non-string values to strings
+        element.setAttribute(key, String(value));
+      }
     }
   });
 };
 
 // Core rendering functions
-export const createTextNode = (text: string): Text => {
+const createTextNode = (text: string): Text => {
   return document.createTextNode(text);
 };
 
-export const createElement = (type: string): HTMLElement => {
+const createElement = (type: string): HTMLElement => {
   try {
     return document.createElement(type);
   } catch (error) {

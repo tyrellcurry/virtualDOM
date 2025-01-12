@@ -1,10 +1,18 @@
-import { Ivnode } from "./vnode.interface";
+import { VNode } from "./vnode.interface";
+
+/**
+ * Creates a Virtual Node that can be rendered as an HTML Element
+ * @param type The HTML Element tag via string eg. 'div'
+ * @param props The HTML Element attributes eg. {'id': 'test',}
+ * @param children Child node or string
+ * @returns Virtual Node object (tree)
+ */
 
 export function createElement(
-  type: Ivnode["type"],
-  props: Partial<Ivnode["props"]> = {},
-  children: Ivnode["children"] = [],
-): Ivnode {
+  type: VNode["type"],
+  props: Partial<VNode["props"]> = {},
+  children: VNode["children"] = [],
+): VNode {
   return {
     type,
     props,
